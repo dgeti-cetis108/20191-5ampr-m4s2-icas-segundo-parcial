@@ -82,7 +82,7 @@ create table categorias (
 create table prestamos (
     id int auto_increment primary key,
     fecha_salida timestamp not null default current_timestamp,
-    fecha_regreso timestamp default null,
+    fecha_regreso timestamp null default null,
     cliente_id int not null,
     usuario_id int not null,
     constraint fk_prestamos_clientes
