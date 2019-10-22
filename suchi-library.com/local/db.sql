@@ -1,7 +1,12 @@
 create database suchidb;
 use suchidb;
 
--- usuarios
+-- creacion de usuario para el sistema
+create user 'suchiadmin'@'localhost' identified by '123';
+-- asignar privilegios sobre la base de datos suchidb
+grant all on suchidb.* to 'suchiadmin'@'localhost';
+
+-- usuarios (01)
 create table usuarios (
     id int auto_increment primary key,
     nombre varchar(16) not null unique,
@@ -13,7 +18,7 @@ create table usuarios (
     activo enum('0','1') not null default '1'
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- libros
+-- libros (06)
 create table libros (
     id int auto_increment primary key,
     titulo varchar(200) not null,
@@ -33,7 +38,7 @@ create table libros (
             on update cascade
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- libros_tiene_autores
+-- libros_tiene_autores (07)
 create table libros_tiene_autores (
     libro_id int,
     autor_id int,
@@ -50,7 +55,7 @@ create table libros_tiene_autores (
             on update cascade
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- editoriales
+-- editoriales (02)
 create table editoriales (
     id int auto_increment primary key,
     nombre varchar(200) not null,
@@ -60,20 +65,20 @@ create table editoriales (
     domicilio text not null
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- autores
+-- autores (03)
 create table autores (
     id int auto_increment primary key,
     nombre varchar(200) not null,
     correo_electronico varchar(200) not null
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- categorias
+-- categorias (04)
 create table categorias (
     id int auto_increment primary key,
     nombre varchar(200) not null
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- prestamos
+-- prestamos (08)
 create table prestamos (
     id int auto_increment primary key,
     fecha_salida timestamp not null default current_timestamp,
@@ -92,7 +97,7 @@ create table prestamos (
             on update cascade
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- prestamos_tiene_libros
+-- prestamos_tiene_libros (09)
 create table prestamos_tiene_libros (
     prestamo_id int,
     libro_id int,
@@ -109,7 +114,7 @@ create table prestamos_tiene_libros (
             on update cascade
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
 
--- clientes
+-- clientes (05)
 create table clientes (
     id int auto_increment primary key,
     nombres varchar(50) not null,
