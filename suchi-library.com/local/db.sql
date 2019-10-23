@@ -122,3 +122,6 @@ create table clientes (
     telefono varchar(30) not null,
     domicilio text not null
 ) engine=innodb, charset=utf8, collate=utf8_general_ci;
+
+alter table usuarios
+change contrasena contrasenia varchar(200) not null;
