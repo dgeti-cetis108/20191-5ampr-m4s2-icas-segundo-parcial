@@ -31,4 +31,17 @@ class Autor {
             }
         }
     }
+
+    public function GuardarNuevo() {
+        $sql = sprintf("insert into autores (nombre, correo_electronico) values ('%s', '%s')", $this->nombre, $this->correo_electronico);
+        $cnn = new Conexion();
+        $rst = $cnn->query($sql);
+        if (!$rst) {
+            die("Error al ejecutar la consulta: $sql");
+        } else {
+            $this->id = $cnn->insert_id;
+            $cnn->close();
+            return true;
+        }
+    }
 }

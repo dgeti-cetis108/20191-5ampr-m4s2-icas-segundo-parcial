@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-class Conexion extends mysqli {
+class Conexion extends \mysqli {
     private $servidor;
     private $usuario;
     private $contrasenia;
