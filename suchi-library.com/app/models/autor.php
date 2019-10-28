@@ -44,4 +44,28 @@ class Autor {
             return true;
         }
     }
+
+    public function GuardarCambios() {
+        $sql = sprintf("update autores set nombre='%s', correo_electronico='%s' where id=%d", $this->nombre, $this->correo_electronico, $this->id);
+        $cnn = new Conexion();
+        $rst = $cnn->query($sql);
+        if (!$rst) {
+            die("Error al ejecutar la consulta: $sql");
+        } else {
+            $cnn->close();
+            return true;
+        }
+    }
+
+    public static function Eliminar($id) {
+        $sql = sprintf("delete from autores where id=%d", $id);
+        $cnn = new Conexion();
+        $rst = $cnn->query($sql);
+        if (!$rst) {
+            die("Error al ejecutar la consulta: $sql");
+        } else {
+            $cnn->close();
+            return true;
+        }
+    }
 }
