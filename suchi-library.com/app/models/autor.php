@@ -46,6 +46,9 @@ class Autor {
     }
 
     public function GuardarCambios() {
+        if (!Autor::Existe($this->id)) {
+            return false;
+        }
         $sql = sprintf("update autores set nombre='%s', correo_electronico='%s' where id=%d", $this->nombre, $this->correo_electronico, $this->id);
         $cnn = new Conexion();
         $rst = $cnn->query($sql);
@@ -58,6 +61,9 @@ class Autor {
     }
 
     public static function Eliminar($id) {
+        if (!Autor::Existe($id)) {
+            return false;
+        }
         $sql = sprintf("delete from autores where id=%d", $id);
         $cnn = new Conexion();
         $rst = $cnn->query($sql);
@@ -66,6 +72,23 @@ class Autor {
         } else {
             $cnn->close();
             return true;
+        }
+    }
+
+    public static function Existe($id) {
+        $sql = sprintf("select nombre from autores where id=%d", $id);
+        $cnn = new Conexion();
+        $rst = $cnn->query($sql);
+        $cnn->close();
+
+        if (!$rst) {
+            die("Error al ejectuar la consulta: $sql");
+        }
+
+        if ($rst->num_rows == 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

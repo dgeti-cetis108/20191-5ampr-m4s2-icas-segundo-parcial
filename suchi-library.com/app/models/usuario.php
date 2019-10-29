@@ -36,4 +36,48 @@ class Usuario {
         }
 
     }
+
+    public static function BuscarPorNombre($nombre) {
+        $sql = sprintf("select nombre from usuarios where nombre='%s'", $nombre);
+        $cnn = new Conexion();
+        $rst = $cnn->query($sql);
+        if (!$rst) {
+            die("Error .... $sql");
+        }
+        if ($rst->num_rows == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function BuscarPorCorreo($correo) {
+        $sql = sprintf("select nombre from usuarios where correo_electronico='%s'", $correo);
+        $cnn = new Conexion();
+        $rst = $cnn->query($sql);
+        if (!$rst) {
+            die("Error .... $sql");
+        }
+        if ($rst->num_rows == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function GuardarNuevo() {
+        if (Usuario::BuscarPorNombre($this->nombre) ||
+            Usuario::BuscarPorCorreo($this->correo_electronico)) {
+            return false;
+        }
+
+        // Aqui va el codigo que ya tenian
+    }
 }
+
+// Ejemplo de prueba
+// $usuario = new Usuario();
+// $usuario->nombre = 'bidkar';
+// $usuario->contrasenia = '123';
+// $usuario->correo_electronico = 'mi@correo.com';
+// $usuario->GuardarNuevo();
